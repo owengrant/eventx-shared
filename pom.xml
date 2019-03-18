@@ -4,7 +4,7 @@
   <groupId>com.geoideas</groupId>
   <artifactId>eventx-shared</artifactId>
   <packaging>jar</packaging>
-  <version>0.10.0</version>
+  <version>0.11.0</version>
   <name>eventx-shared</name>
   <url>http://maven.apache.org</url>
   <dependencies>

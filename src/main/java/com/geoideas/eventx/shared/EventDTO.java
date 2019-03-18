@@ -4,9 +4,10 @@ import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 
 public class EventDTO {
-    private int eventId = -1;
+    private int eventId;
     private String event;
-    private int entityId = -1;
+    private String context;
+    private String entityId;
     private String entity;
     private int version;
     private JsonObject data;
@@ -16,9 +17,26 @@ public class EventDTO {
     private int revision;
     private String hash;
 
-    public EventDTO(){}
+    public EventDTO(){
+        this.eventId = -1;
+        this.event = "";
+        this.context = "";
+        this.entityId = "";
+        this.entity = "";
+        this.version = -1;
+        this.data = new JsonObject();
+        this.received = "";
+        this.eventType = "";
+        this.revision = -1;
+        this.hash = "";
+    }
 
-    public EventDTO(String hash, String event, String eventType, int revision, int entityId, String entity, int version, JsonObject data) {
+    public EventDTO(String context,String hash, String event, String eventType, String entityId, String entity, int version, JsonObject data) {
+        this(context, hash, event, eventType, -1, entityId, entity, version, data);
+    }
+    
+    public EventDTO(String context,String hash, String event, String eventType, int revision, String entityId, String entity, int version, JsonObject data) {
+        this.context = context;
         this.hash = hash;
         this.event = event != null ? event.toUpperCase() : "";
         this.entityId = entityId;
@@ -27,13 +45,12 @@ public class EventDTO {
         this.data = data;
         this.eventType = eventType;
         this.revision = revision;
-        this.sent = sent;
     }
 
     public EventDTO fromJson(JsonObject json){
         this.eventId = json.getInteger("eventId", -1);
         setEvent(json.getString("event", ""));
-        this.entityId = json.getInteger("entityId", -1);
+        this.entityId = json.getString("entityId", "");
         setEntity(json.getString("entity", ""));
         this.version = json.getInteger("version", -1);
         this.data = json.getJsonObject("data", new JsonObject());
@@ -42,6 +59,7 @@ public class EventDTO {
         this.eventType = json.getString("eventType", "");
         this.revision = json.getInteger("revision", -1);
         this.hash = json.getString("hash", "");
+        this.context = json.getString("context", "");
         return this;
     }
 
@@ -50,6 +68,15 @@ public class EventDTO {
         return new JsonObject(Json.encode(this));
     }
 
+    public String getContext() {
+        return context;
+    }
+
+    public EventDTO setContext(String context) {
+        this.context = context;
+	return this;
+    }
+    
     public int getEventId() {
         return eventId;
     }
@@ -68,11 +95,11 @@ public class EventDTO {
         return this;
     }
 
-    public int getEntityId() {
+    public String getEntityId() {
         return entityId;
     }
 
-    public EventDTO setEntityId(int entity_id) {
+    public EventDTO setEntityId(String entity_id) {
         this.entityId = entity_id;
         return this;
     }
