@@ -155,13 +155,13 @@
     /**
 
      @public
-     @param entityId {number} 
+     @param entityId {string} 
      @param entity {string} 
      @param complete {function} 
      */
     this.pollEntityById =  function(entityId, entity, complete) {
       var __args = arguments;
-      if (__args.length === 3 && typeof __args[0] ==='number' && typeof __args[1] === 'string' && typeof __args[2] === 'function') {
+      if (__args.length === 3 && typeof __args[0] === 'string' && typeof __args[1] === 'string' && typeof __args[2] === 'function') {
         if (closed) {
           throw new Error('Proxy is closed');
         }
@@ -173,13 +173,31 @@
     /**
 
      @public
-     @param entityId {number} 
+     @param eventId {number} 
+     @param context {string} 
+     @param complete {function} 
+     */
+    this.pollContext =  function(eventId, context, complete) {
+      var __args = arguments;
+      if (__args.length === 3 && typeof __args[0] ==='number' && typeof __args[1] === 'string' && typeof __args[2] === 'function') {
+        if (closed) {
+          throw new Error('Proxy is closed');
+        }
+        j_eb.send(j_address, {"eventId":__args[0], "context":__args[1]}, {"action":"pollContext"}, function(err, result) { __args[2](err, result && result.body); });
+        return;
+      } else throw new TypeError('function invoked with invalid arguments');
+    };
+
+    /**
+
+     @public
+     @param entityId {string} 
      @param entity {string} 
      @param complete {function} 
      */
     this.findLastEvent =  function(entityId, entity, complete) {
       var __args = arguments;
-      if (__args.length === 3 && typeof __args[0] ==='number' && typeof __args[1] === 'string' && typeof __args[2] === 'function') {
+      if (__args.length === 3 && typeof __args[0] === 'string' && typeof __args[1] === 'string' && typeof __args[2] === 'function') {
         if (closed) {
           throw new Error('Proxy is closed');
         }

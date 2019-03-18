@@ -34,9 +34,11 @@ export default class EventService {
 
   pollEntityEvent(eventId: number, entity: string, event: string, complete: (err: any, result: Array) => any) : void;
 
-  pollEntityById(entityId: number, entity: string, complete: (err: any, result: Array) => any) : void;
+  pollEntityById(entityId: string, entity: string, complete: (err: any, result: Array) => any) : void;
 
-  findLastEvent(entityId: number, entity: string, complete: (err: any, result: Array) => any) : void;
+  pollContext(eventId: number, context: string, complete: (err: any, result: Array) => any) : void;
+
+  findLastEvent(entityId: string, entity: string, complete: (err: any, result: Array) => any) : void;
 
   find(hash: string, complete: (err: any, result: Array) => any) : void;
 }

@@ -14,7 +14,7 @@
 * under the License.
 */
 
-package com.geoideas.eventx.shared;
+package com.geoideas.eventx.service.consumer;
 
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.Vertx;
@@ -182,7 +182,7 @@ public class EventServiceVertxEBProxy implements EventService {
     });
   }
   @Override
-  public  void pollEntityById(int entityId, String entity, Handler<AsyncResult<JsonArray>> complete){
+  public  void pollEntityById(String entityId, String entity, Handler<AsyncResult<JsonArray>> complete){
     if (closed) {
       complete.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
       return;
@@ -202,7 +202,27 @@ public class EventServiceVertxEBProxy implements EventService {
     });
   }
   @Override
-  public  void findLastEvent(int entityId, String entity, Handler<AsyncResult<JsonArray>> complete){
+  public  void pollContext(int eventId, String context, Handler<AsyncResult<JsonArray>> complete){
+    if (closed) {
+      complete.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
+      return;
+    }
+    JsonObject _json = new JsonObject();
+    _json.put("eventId", eventId);
+    _json.put("context", context);
+
+    DeliveryOptions _deliveryOptions = (_options != null) ? new DeliveryOptions(_options) : new DeliveryOptions();
+    _deliveryOptions.addHeader("action", "pollContext");
+    _vertx.eventBus().<JsonArray>send(_address, _json, _deliveryOptions, res -> {
+      if (res.failed()) {
+        complete.handle(Future.failedFuture(res.cause()));
+      } else {
+        complete.handle(Future.succeededFuture(res.result().body()));
+      }
+    });
+  }
+  @Override
+  public  void findLastEvent(String entityId, String entity, Handler<AsyncResult<JsonArray>> complete){
     if (closed) {
       complete.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
       return;
