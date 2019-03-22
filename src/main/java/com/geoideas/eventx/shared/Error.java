@@ -14,9 +14,10 @@ public class Error {
     public static final int DUPLICATE_EVENT = 1001;
     public static final int DUPLICATE_HASH = 1002;
     public static final int UNKNOWN_ERROR = 1111;
-    
+
+    public static final String DUPICATE = "DUPLICATE";
     public static final String EVENT_CONTENT_ERROR_MESSAGE = "Error in the event message format";
-    public static final String DUPLICATE_EVENT_MESSAGE = "An event with the same ENTITY, ENTITYID and REVISION already exists";
-    public static final String DUPLICATE_HASH_MESSAGE = "An event with the same HASH already exists";
+    public static final String DUPLICATE_EVENT_MESSAGE = DUPICATE+": An event with the same CONTEXT, ENTITY, ENTITYID and REVISION already exists";
+    public static final String DUPLICATE_HASH_MESSAGE = DUPICATE+": An event with the same HASH already exists";
     public static final String UNKNOWN_ERROR_MESSAGE = "An unknown error has occured";
 }

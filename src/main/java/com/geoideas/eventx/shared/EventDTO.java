@@ -31,13 +31,10 @@ public class EventDTO {
         this.hash = "";
     }
 
-    public EventDTO(String context,String hash, String event, String eventType, String entityId, String entity, int version, JsonObject data) {
-        this(context, hash, event, eventType, -1, entityId, entity, version, data);
-    }
     
-    public EventDTO(String context,String hash, String event, String eventType, int revision, String entityId, String entity, int version, JsonObject data) {
+    public EventDTO(String context,String event, String eventType, int revision, String entityId, String entity, int version, JsonObject data) {
+        this();
         this.context = context;
-        this.hash = hash;
         this.event = event != null ? event.toUpperCase() : "";
         this.entityId = entityId;
         this.entity = entity != null ? entity.toUpperCase() : "";
@@ -58,8 +55,8 @@ public class EventDTO {
         this.received = json.getString("received", "");
         this.eventType = json.getString("eventType", "");
         this.revision = json.getInteger("revision", -1);
-        this.hash = json.getString("hash", "");
         this.context = json.getString("context", "");
+        this.hash = json.getString("hash", "");
         return this;
     }
 
