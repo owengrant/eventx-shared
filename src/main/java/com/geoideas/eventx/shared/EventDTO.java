@@ -4,6 +4,7 @@ import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 
 public class EventDTO {
+    private static final String DELIMITER = ":";
     private int eventId;
     private String event;
     private String context;
@@ -35,9 +36,9 @@ public class EventDTO {
     public EventDTO(String context,String event, String eventType, int revision, String entityId, String entity, int version, JsonObject data) {
         this();
         this.context = context;
-        this.event = event != null ? event.toUpperCase() : "";
+        this.event = event != null && !event.isBlank() ? context+DELIMITER+event.toUpperCase() : "";
         this.entityId = entityId;
-        this.entity = entity != null ? entity.toUpperCase() : "";
+        this.entity = entity != null && !entity.isBlank() ? context+DELIMITER+entity.toUpperCase() : "";
         this.version = version;
         this.data = data;
         this.eventType = eventType;
@@ -88,7 +89,7 @@ public class EventDTO {
     }
 
     public EventDTO setEvent(String event) {
-        this.event = event != null && !event.isBlank() ? event.toUpperCase() : "";
+        this.event = event != null && !event.isBlank() ? context+DELIMITER+event.toUpperCase() : "";
         return this;
     }
 
@@ -106,7 +107,7 @@ public class EventDTO {
     }
 
     public EventDTO setEntity(String entity) {
-        this.entity = entity != null && !entity.isBlank() ? entity.toUpperCase() : "";
+        this.entity = entity != null && !entity.isBlank() ? context+DELIMITER+entity.toUpperCase() : "";
         return this;
     }
 
