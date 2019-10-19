@@ -36,9 +36,9 @@ public class EventDTO {
     public EventDTO(String context,String event, String eventType, int revision, String entityId, String entity, int version, JsonObject data) {
         this();
         this.context = context;
-        this.event = event != null && !event.isBlank() ? context+DELIMITER+event : "";
+        this.event = event != null && !event.isBlank() ? event : "";
         this.entityId = entityId;
-        this.entity = entity != null && !entity.isBlank() ? context+DELIMITER+entity : "";
+        this.entity = entity != null && !entity.isBlank() ? entity : "";
         this.version = version;
         this.data = data;
         this.eventType = eventType;
@@ -89,7 +89,7 @@ public class EventDTO {
     }
 
     public EventDTO setEvent(String event) {
-        this.event = event != null && !event.isBlank() ? context+DELIMITER+event : "";
+        this.event = event != null && !event.isBlank() ? event : "";
         return this;
     }
 
@@ -107,7 +107,7 @@ public class EventDTO {
     }
 
     public EventDTO setEntity(String entity) {
-        this.entity = entity != null && !entity.isBlank() ? context+DELIMITER+entity : "";
+        this.entity = entity != null && !entity.isBlank() ? entity : "";
         return this;
     }
 
