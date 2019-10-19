@@ -36,9 +36,9 @@ public class EventDTO {
     public EventDTO(String context,String event, String eventType, int revision, String entityId, String entity, int version, JsonObject data) {
         this();
         this.context = context;
-        this.event = event != null && !event.isBlank() ? context+DELIMITER+event.toUpperCase() : "";
+        this.event = event != null && !event.isBlank() ? context+DELIMITER+event : "";
         this.entityId = entityId;
-        this.entity = entity != null && !entity.isBlank() ? context+DELIMITER+entity.toUpperCase() : "";
+        this.entity = entity != null && !entity.isBlank() ? context+DELIMITER+entity : "";
         this.version = version;
         this.data = data;
         this.eventType = eventType;
@@ -46,6 +46,7 @@ public class EventDTO {
     }
 
     public EventDTO fromJson(JsonObject json){
+        this.context = json.getString("context", "");
         this.eventId = json.getInteger("eventId", -1);
         setEvent(json.getString("event", ""));
         this.entityId = json.getString("entityId", "");
@@ -56,7 +57,6 @@ public class EventDTO {
         this.received = json.getString("received", "");
         this.eventType = json.getString("eventType", "");
         this.revision = json.getInteger("revision", -1);
-        this.context = json.getString("context", "");
         this.hash = json.getString("hash", "");
         return this;
     }
@@ -89,7 +89,7 @@ public class EventDTO {
     }
 
     public EventDTO setEvent(String event) {
-        this.event = event != null && !event.isBlank() ? context+DELIMITER+event.toUpperCase() : "";
+        this.event = event != null && !event.isBlank() ? context+DELIMITER+event : "";
         return this;
     }
 
@@ -107,7 +107,7 @@ public class EventDTO {
     }
 
     public EventDTO setEntity(String entity) {
-        this.entity = entity != null && !entity.isBlank() ? context+DELIMITER+entity.toUpperCase() : "";
+        this.entity = entity != null && !entity.isBlank() ? context+DELIMITER+entity : "";
         return this;
     }
 
